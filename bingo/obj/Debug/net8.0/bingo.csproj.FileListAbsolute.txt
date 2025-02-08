@@ -1,0 +1,15 @@
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/bin/Debug/net8.0/bingo
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/bin/Debug/net8.0/bingo.deps.json
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/bin/Debug/net8.0/bingo.runtimeconfig.json
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/bin/Debug/net8.0/bingo.dll
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/bin/Debug/net8.0/bingo.pdb
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.GeneratedMSBuildEditorConfig.editorconfig
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.AssemblyInfoInputs.cache
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.AssemblyInfo.cs
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.csproj.CoreCompileInputs.cache
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.sourcelink.json
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.dll
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/refint/bingo.dll
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.pdb
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/bingo.genruntimeconfig.cache
+/Users/petrbalabolkin/RiderProjects/bingo/bingo/obj/Debug/net8.0/ref/bingo.dll
