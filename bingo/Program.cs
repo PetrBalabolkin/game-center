@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        WriteBingo();
+        /* WriteBingo();
         Console.WriteLine();
 
         // vytvorenie pola
@@ -52,7 +52,11 @@ class Program
         if (win)
         {
             Console.WriteLine("Vyhral si");
-        }
+        } */
+        
+        WriteBingo();
+        Thread.Sleep(1000);
+        ChooseMode();
     }
 
     static void WriteBingo()
@@ -71,16 +75,17 @@ class Program
             Console.WriteLine(line);
         }
     }
-
-    // TODO... ked budu hotove rezimy
+    
     static void ChooseMode()
     {
+        Console.WriteLine();
         Console.WriteLine("Vyberte rezim hry:");
         Console.WriteLine("1 - Bingo Full");
         Console.WriteLine("2 - Bingo Row");
         Console.WriteLine("3 - Bingo Column");
         Console.WriteLine("4 - Bingo Diagonal");
         Console.WriteLine("5 - Loteria");
+        Console.WriteLine();
 
         int choice = 0;
         try
@@ -99,7 +104,7 @@ class Program
             case 3: BingoCol(); break;
             case 4: BingoDiagonal(); break;
             case 5: Loteria(); break;
-            default: break;
+            default: BingoFull(); break;
         }
     }
 
@@ -155,7 +160,7 @@ class Program
         return card;
     }
 
-    static void Print(int[,] card)
+    static void Print(int[,] card, int[] numbers)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
@@ -180,7 +185,16 @@ class Program
                     Console.Write("   |");
                     continue;
                 } */
-                Console.Write(" " + card[i, j] + " |");
+                Console.Write(" ");
+                if (numbers.Contains(card[i, j]))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.Write(card[i, j]);
+                
+                Console.ResetColor();
+                
+                Console.Write(" |");
             }
 
             if (card.GetLength(0) % card.GetLength(0) == 0)
@@ -268,7 +282,7 @@ class Program
         }
     }
 
-    static void Step(int[] numbers, int counter)
+    static int Step(int[] numbers, int counter)
     {
         Random random = new Random();
 
@@ -278,9 +292,13 @@ class Program
         {
             stepNum = random.Next(0, 100);
         } while (numbers.Contains(stepNum));
+        
+        Console.WriteLine("Vypadlo cislo: " + stepNum);
 
         numbers[counter] = stepNum;
         counter++;
+        
+        return counter;
     }
 
     static bool CheckWinFull(int[,] card, int[] numbers, int counter)
@@ -478,10 +496,12 @@ class Program
         
         int[,] card = Create();
         ChooseFill(card);
+        Print(card, numbers);
 
         do
         {
             Step(numbers, counter);
+            Print(card, numbers);
             win = CheckWinFull(card, numbers, counter);
         } while (win != true);
 
