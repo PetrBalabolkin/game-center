@@ -4,56 +4,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        /* WriteBingo();
-        Console.WriteLine();
-
-        // vytvorenie pola
-        int[,] card = Create();
-
-        // naplnenie pola
-        Console.Write("Vyplnit karticku automaticky? (y/n) ");
-        char ansFill = '.';
-        try
-        {
-            ansFill = Convert.ToChar(Console.ReadLine());
-        }
-        catch
-        {
-            Console.WriteLine("Vyplnit karticku automaticky? (y/n) ");
-        }
-
-        if (ansFill == 'y')
-        {
-            FillAuto(card);
-        }
-        else
-        {
-            FillManual(card);
-        }
-
-        Print(card);
-
-        // hra s krokami
-        int[] numbers = new int[100];
-        for (int i = 0; i < numbers.Length; i++)
-        {
-            numbers[i] = -1;
-        }
-
-        int counter = 0;
-
-        bool win = false;
-        do
-        {
-            Step(numbers, counter);
-            win = CheckWinFull(card, numbers, counter);
-        } while (win == false);
-
-        if (win)
-        {
-            Console.WriteLine("Vyhral si");
-        } */
-        
         WriteBingo();
         Thread.Sleep(1000);
         ChooseMode();
@@ -308,8 +258,7 @@ class Program
             }
         }
     }
-
-    //TODO... fix bugovanost (nevratenie arraya/premennej)
+    
     static int Step(int[] numbers, int counter)
     {
         Random random = new Random();
@@ -375,29 +324,28 @@ class Program
     {
         for (int i = 0; i < card.GetLength(0); i++)
         {
+            bool[] numsWon = new bool[card.GetLength(1)];
+            
             for (int j = 0; j < card.GetLength(1); j++)
             {
-                bool[] numsWon = new bool[card.GetLength(0)];
-                int numsInd = 0;
-                
                 for (int k = 0; k < numbers.Length; k++)
                 {
                     if (numbers[k] == -1)
                     {
                         break;
                     }
-
+                    
                     if (card[i, j] == numbers[k])
                     {
-                        numsWon[numsInd] = true;
-                    }
-                    numsInd++;
+                        numsWon[j] = true;
+                        break;
+                    } 
                 }
-
-                if (numsWon.All(n => n))
-                {
-                    return true;
-                }
+            }
+            
+            if (numsWon.All(n => n))
+            {
+                return true;
             }
         }
         return false;
@@ -407,11 +355,10 @@ class Program
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
+            bool[] numsWon = new bool[card.GetLength(0)];
+            
             for (int j = 0; j < card.GetLength(0); j++)
             {
-                bool[] numsWon = new bool[card.GetLength(1)];
-                int numsInd = 0;
-                
                 for (int k = 0; k < numbers.Length; k++)
                 {
                     if (numbers[k] == -1)
@@ -421,15 +368,15 @@ class Program
 
                     if (card[j, i] == numbers[k])
                     {
-                        numsWon[numsInd] = true;
+                        numsWon[j] = true;
+                        break;
                     }
-                    numsInd++;
                 }
-
-                if (numsWon.All(n => n))
-                {
-                    return true;
-                }
+            }
+            
+            if (numsWon.All(n => n))
+            {
+                return true;
             }
         }
         return false;
@@ -557,9 +504,11 @@ class Program
 
         do
         {
+            Thread.Sleep(1000);
             counter = Step(numbers, counter);
+            Print(card, numbers);
             win = CheckWinRow(card, numbers);
-        } while (win != true);
+        } while (!win);
 
         if (win)
         {
@@ -584,9 +533,11 @@ class Program
 
         do
         {
+            Thread.Sleep(1000);
             counter = Step(numbers, counter);
+            Print(card, numbers);
             win = CheckWinCol(card, numbers);
-        } while (win != true);
+        } while (!win);
 
         if (win)
         {
@@ -611,6 +562,7 @@ class Program
 
         do
         {
+            Thread.Sleep(1000);
             counter = Step(numbers, counter);
             win = ChcekWinDiagonalRight(card, numbers);
             if (win)
@@ -618,7 +570,7 @@ class Program
                 continue;
             }
             win = ChcekWinDiagonalLeft(card, numbers);
-        } while (win != true);
+        } while (!win);
 
         if (win)
         {
