@@ -88,15 +88,22 @@ class Program
         Console.WriteLine();
 
         int choice = 0;
-        try
+        do
         {
-            choice = Convert.ToInt32(Console.ReadLine());
-        }
-        catch
-        {
-            Console.WriteLine("Zadali ste nespravnu hodnotu");
-        }
-
+            try
+            {
+                if (choice < 1 || choice > 5)
+                {
+                    Console.WriteLine("Vyberte hry od 1 do 5:");
+                }
+                choice = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Zadali ste nespravnu hodnotu");
+            }
+        } while (choice < 1 || choice > 5);
+        
         switch (choice)
         {
             case 1: BingoFull(); break;
@@ -112,15 +119,20 @@ class Program
     {
         Console.Write("Vyplnit karticku automaticky? (y/n) ");
         char ansFill = '.';
-        try
+        while (ansFill != 'y' || ansFill == 'n')
         {
-            ansFill = Convert.ToChar(Console.ReadLine());
+            string input = Console.ReadLine(); 
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            {
+                ansFill = input[0];
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
+            }
         }
-        catch
-        {
-            Console.WriteLine("Vyplnit karticku automaticky? (y/n) ");
-        }
-
+        
         if (ansFill == 'y')
         {
             FillAuto(card);
@@ -137,23 +149,31 @@ class Program
         int cardWidth = 0;
 
         Console.WriteLine("Zadajte vysku a dlzku hernej karticky: \n(Rozmery rozdelte stlacenim klavesy 'Enter')");
-        try
+        do
         {
-            cardHeight = Convert.ToInt32(Console.ReadLine());
-        }
-        catch
-        {
-            Console.WriteLine("Nezadali ste cislo");
-        }
+            try
+            {
+                cardHeight = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Nezadali ste cislo");
+                Console.WriteLine("Zadajte vysku hernej karticky: ");
+            }
+        } while (cardHeight < 1);
 
-        try
+        do
         {
-            cardWidth = Convert.ToInt32(Console.ReadLine());
-        }
-        catch
-        {
-            Console.WriteLine("Nezadali ste cislo");
-        }
+            try
+            {
+                cardWidth = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Nezadali ste cislo");
+                Console.WriteLine("Zadajte dlzku hernej karticky: ");
+            }
+        } while (cardWidth < 1);
 
         int[,] card = new int[cardHeight, cardWidth];
 
@@ -265,7 +285,14 @@ class Program
                                 Console.Write("Zadajte hodnotu znovu: ");
                             }
 
-                            rndNum = int.Parse(Console.ReadLine());
+                            try
+                            {
+                                rndNum = int.Parse(Console.ReadLine());
+                            }
+                            catch
+                            {
+                                Console.Write("Nezadali ste cislo. \nZadajte hodnotu znovu: ");
+                            }
                             count++;
                         } while ((rndNum < (i * 10)) || (rndNum > ((i + 1) * 10)));
                     }
@@ -282,6 +309,7 @@ class Program
         }
     }
 
+    //TODO... fix bugovanost (nevratenie arraya/premennej)
     static int Step(int[] numbers, int counter)
     {
         Random random = new Random();
@@ -596,7 +624,7 @@ class Program
             Console.WriteLine("Vyhral si!");
         }
     }
-
+    
     static void Loteria()
     {
         
