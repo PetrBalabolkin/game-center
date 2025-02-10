@@ -4,7 +4,7 @@ namespace bingo;
 
 public class Loteria
 {
-    static void WriteLoteria()
+    private static void WriteLoteria()
     {
         Console.Clear();
         string[] loteriaAscii =
@@ -22,7 +22,7 @@ public class Loteria
         }
     }
 
-    static void ChooseWriteRules()
+    private static void ChooseWriteRules()
     {
         Console.WriteLine();
         Console.Write("Vypisat pravidla? (y/n) ");
@@ -47,7 +47,7 @@ public class Loteria
         }
     }
 
-    static void WriteRules()
+    private static void WriteRules()
     {
         Console.WriteLine("1. V hre Loteria dostavate karticku (4 x 9), na ktorej musite vyznacit 8 cisel.");
         Console.WriteLine("2. Nasledne budu vypadat cisla. Absolutne nahodne a neovplyvnene organizatorom sutaze.");
@@ -57,14 +57,14 @@ public class Loteria
         Console.WriteLine("6. Na zaciatku hry mate 50 eur. Hru mozete skoncit hocikedy a ziskat peniaze. " +
                           "\n   Avsak ked miniete vsetky peniaze na listky a vas kredit bude menej ako 10 eur nedostanete nic");
     }
-    
-    public static int[,] Create()
+
+    private static int[,] Create()
     {
         int[,] card = new int[4, 9];
         return card;
     }
-    
-    public static void FillAuto(int[,] card)
+
+    private static void FillAuto(int[,] card)
     {
         Random random = new Random();
         for (int i = 0; i < card.GetLength(0); i++)
@@ -96,7 +96,7 @@ public class Loteria
         }
     }
 
-    static int[] ChooseNumbers(int[,] card)
+    private static int[] ChooseNumbers(int[,] card)
     {
         int[] numbers = new int[8];
 
@@ -120,7 +120,7 @@ public class Loteria
         return numbers;
     }
     
-    static void Print(int[,] card, int[] numbers, int[] chosenNumbers)
+    private static void Print(int[,] card, int[] numbers, int[] chosenNumbers)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
@@ -177,7 +177,7 @@ public class Loteria
         }
     }
 
-    static void LoteriaMechanichs()
+    private static void LoteriaMechanichs()
     {
         int[] numbers = new int[100];
         for (int i = 0; i < numbers.Length; i++)

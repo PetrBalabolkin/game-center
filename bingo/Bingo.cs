@@ -2,7 +2,7 @@ namespace bingo;
 
 public class Bingo
 {
-    public static void WriteBingo()
+    private static void WriteBingo()
     {
         string[] bingoAscii =
         {
@@ -19,7 +19,7 @@ public class Bingo
         }
     }
 
-    public static void ChooseMode()
+    private static void ChooseMode()
     {
         Console.WriteLine();
         Console.WriteLine("Vyberte rezim hry:");
@@ -58,7 +58,7 @@ public class Bingo
         }
     }
 
-    public static void ChooseFill(int[,] card)
+    private static void ChooseFill(int[,] card)
     {
         Console.Write("Vyplnit karticku automaticky? (y/n) ");
         char ansFill = '.';
@@ -86,7 +86,7 @@ public class Bingo
         }
     }
 
-    public static int[,] Create()
+    private static int[,] Create()
     {
         int cardHeight = 0;
         int cardWidth = 0;
@@ -123,7 +123,7 @@ public class Bingo
         return card;
     }
 
-    public static void Print(int[,] card, int[] numbers)
+    private static void Print(int[,] card, int[] numbers)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
@@ -174,7 +174,7 @@ public class Bingo
         }
     }
 
-    public static void FillAuto(int[,] card)
+    private static void FillAuto(int[,] card)
     {
         Random random = new Random();
 
@@ -200,7 +200,7 @@ public class Bingo
         }
     }
 
-    public static void FillManual(int[,] card)
+    private static void FillManual(int[,] card)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
@@ -252,7 +252,7 @@ public class Bingo
         }
     }
     
-    static int Step(int[] numbers, int counter)
+    private static int Step(int[] numbers, int counter)
     {
         Random random = new Random();
 
@@ -271,7 +271,7 @@ public class Bingo
         return counter;
     }
 
-    static bool CheckWinFull(int[,] card, int[] numbers, int counter)
+    private static bool CheckWinFull(int[,] card, int[] numbers, int counter)
     {
         bool[] numsWon = new bool[counter];
         int counterWon = 0;
@@ -313,7 +313,7 @@ public class Bingo
         return false;
     }
 
-    static bool CheckWinRow(int[,] card, int[] numbers)
+    private static bool CheckWinRow(int[,] card, int[] numbers)
     {
         for (int i = 0; i < card.GetLength(0); i++)
         {
@@ -344,7 +344,7 @@ public class Bingo
         return false;
     }
 
-    static bool CheckWinCol(int[,] card, int[] numbers)
+    private static bool CheckWinCol(int[,] card, int[] numbers)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
@@ -375,7 +375,7 @@ public class Bingo
         return false;
     }
 
-    static bool ChcekWinDiagonalRight(int[,] card, int[] numbers)
+    private static bool ChcekWinDiagonalRight(int[,] card, int[] numbers)
     {
         bool[] numsWon = new bool[card.GetLength(0)];
         
@@ -404,7 +404,7 @@ public class Bingo
         return false;
     }
     
-    static bool ChcekWinDiagonalLeft(int[,] card, int[] numbers)
+    private static bool ChcekWinDiagonalLeft(int[,] card, int[] numbers)
     {
         bool[] numsWon = new bool[card.GetLength(0)];
         
@@ -448,7 +448,7 @@ public class Bingo
         return false;
     }
 
-    static void BingoFull()
+    private static void BingoFull()
     {
         bool win = false;
         
@@ -478,7 +478,7 @@ public class Bingo
         }
     }
 
-    static void BingoRow()
+    private static void BingoRow()
     {
         bool win = false;
         
@@ -507,7 +507,7 @@ public class Bingo
         }
     }
 
-    static void BingoCol()
+    private static void BingoCol()
     {
         bool win = false;
         
@@ -536,7 +536,7 @@ public class Bingo
         }
     }
 
-    static void BingoDiagonal()
+    private static void BingoDiagonal()
     {
         bool win = false;
         

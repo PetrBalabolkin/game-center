@@ -15,7 +15,7 @@ class Program
         ChooseGame();
     }
 
-    static void WriteName()
+    private static void WriteName()
     {
         string[] asciiArt = new string[]
         {
@@ -32,7 +32,7 @@ class Program
         }
     }
     
-    static void ChooseGame()
+    private static void ChooseGame()
     {
         Console.WriteLine();
         Console.WriteLine("Vyberte rezim hry:");
@@ -67,7 +67,7 @@ class Program
             case 3: Piskvorky.PiskvorkyGame(); break;
             // case 4: BingoDiagonal(); break;
             // case 5: Loteria(); break;
-            // default: BingoFull(); break;
+            default: Bingo.BingoGame(); break;
         }
     }
 }

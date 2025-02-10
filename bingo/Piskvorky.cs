@@ -2,7 +2,7 @@ namespace bingo;
 
 public class Piskvorky
 {
-    static void WritePiskvorky()
+    private static void WritePiskvorky()
     {
         string[] loteriaAscii =
         {
@@ -20,7 +20,7 @@ public class Piskvorky
         Console.WriteLine();
     }
 
-    static char ChooseMode()
+    private static char ChooseMode()
     {
         Console.Write("Hrat proti pocitacu? (y/n) ");
         char ansFill = '.';
@@ -39,7 +39,7 @@ public class Piskvorky
         }
         return ansFill;
     }
-    static void ShowTable(char[,] arr, char user, char bot)
+    private static void ShowTable(char[,] arr, char user, char bot)
         {
             Console.WriteLine("Pouzivatel: " + user +"\nPocitac: " + bot);
 
@@ -70,7 +70,7 @@ public class Piskvorky
             }
         }
 
-        static void TakeStepXAuto(char[,] arr, char user, char bot, int[] winCor)
+        private static void TakeStepXAuto(char[,] arr, char user, char bot, int[] winCor)
         {
             Random random = new Random();
             int a = 0;
@@ -182,7 +182,7 @@ public class Piskvorky
             arr[c, d] = bot;
         }
         
-        static void TakeStepOAuto(char[,] arr, char user, char bot, int[] winCor)
+        private static void TakeStepOAuto(char[,] arr, char user, char bot, int[] winCor)
         {
             Random random = new Random();
             int a = 0;
@@ -291,7 +291,7 @@ public class Piskvorky
             arr[a, b] = user;
         }
         
-        static void TakeStepXManual(char[,] arr, char oneUser, char twoUser, int[] winCor)
+        private static void TakeStepXManual(char[,] arr, char oneUser, char twoUser, int[] winCor)
         {
             int a = 0;
             int b = 0;
@@ -404,7 +404,7 @@ public class Piskvorky
             arr[c, d] = twoUser;
         }
         
-        static void TakeStepOManual(char[,] arr, char oneUser, char twoUser, int[] winCor)
+        private static void TakeStepOManual(char[,] arr, char oneUser, char twoUser, int[] winCor)
         {
             int a = 0;
             int b = 0;
@@ -516,7 +516,7 @@ public class Piskvorky
             arr[a, b] = oneUser;
         }
 
-        static bool CheckWin(char[,] arr, char znak, int[] winCor)
+        private static bool CheckWin(char[,] arr, char znak, int[] winCor)
         {
             bool win = false;
             // horizontal
@@ -579,7 +579,7 @@ public class Piskvorky
             return win;
         }
         
-        static void ShowWinTable(char[,] arr, char user, char bot, int[] winCor)
+        private static void ShowWinTable(char[,] arr, char user, char bot, int[] winCor)
         {
             Console.WriteLine("Pouzivatel: " + user +"\nPocitac: " + bot);
 
