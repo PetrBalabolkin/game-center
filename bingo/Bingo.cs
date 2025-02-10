@@ -123,7 +123,7 @@ public class Bingo
         return card;
     }
 
-    static void Print(int[,] card, int[] numbers)
+    public static void Print(int[,] card, int[] numbers)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
@@ -174,7 +174,7 @@ public class Bingo
         }
     }
 
-    static void FillAuto(int[,] card)
+    public static void FillAuto(int[,] card)
     {
         Random random = new Random();
 
@@ -200,7 +200,7 @@ public class Bingo
         }
     }
 
-    static void FillManual(int[,] card)
+    public static void FillManual(int[,] card)
     {
         for (int i = 0; i < card.GetLength(1); i++)
         {
