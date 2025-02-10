@@ -528,7 +528,8 @@ class Program
 
         do
         {
-            Step(numbers, counter);
+            Thread.Sleep(1000);
+            counter = Step(numbers, counter);
             Print(card, numbers);
             win = CheckWinFull(card, numbers, counter);
         } while (win != true);
@@ -556,7 +557,7 @@ class Program
 
         do
         {
-            Step(numbers, counter);
+            counter = Step(numbers, counter);
             win = CheckWinRow(card, numbers);
         } while (win != true);
 
@@ -583,7 +584,7 @@ class Program
 
         do
         {
-            Step(numbers, counter);
+            counter = Step(numbers, counter);
             win = CheckWinCol(card, numbers);
         } while (win != true);
 
@@ -610,7 +611,7 @@ class Program
 
         do
         {
-            Step(numbers, counter);
+            counter = Step(numbers, counter);
             win = ChcekWinDiagonalRight(card, numbers);
             if (win)
             {
