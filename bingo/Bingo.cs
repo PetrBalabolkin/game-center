@@ -433,7 +433,7 @@ public class Bingo
         return false;
     }
 
-    static bool Contains(int[,] arr, int num)
+    public static bool Contains(int[,] arr, int num)
     {
         for (int i = 0; i < arr.GetLength(1); i++)
         {

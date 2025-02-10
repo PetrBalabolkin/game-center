@@ -11,6 +11,7 @@ class Program
     {
         Console.WriteLine();
         WriteName();
+        Thread.Sleep(1000);
         ChooseGame();
     }
 
