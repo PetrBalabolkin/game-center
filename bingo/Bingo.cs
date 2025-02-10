@@ -6,11 +6,11 @@ public class Bingo
     {
         string[] bingoAscii =
         {
-            "███████  ██ ███    ██  ██████   ██████  ",
-            "██    ██ ██ ████   ██ ██       ██    ██ ",
-            "███████  ██ ██ ██  ██ ██   ███ ██    ██ ",
-            "██    ██ ██ ██  ██ ██ ██    ██ ██    ██ ",
-            "███████  ██ ██   ████  ██████   ██████  "
+            "███████  ██ ███    ██  ██████   ██████ ",
+            "██    ██ ██ ████   ██ ██       ██    ██",
+            "███████  ██ ██ ██  ██ ██   ███ ██    ██",
+            "██    ██ ██ ██  ██ ██ ██    ██ ██    ██",
+            "███████  ██ ██   ████  ██████   ██████ "
         };
 
         foreach (string line in bingoAscii)
@@ -53,7 +53,7 @@ public class Bingo
             case 2: BingoRow(); break;
             case 3: BingoCol(); break;
             case 4: BingoDiagonal(); break;
-            //case 5: Loteria(); break;
+            case 5: Loteria.LoteriaGame(); break;
             default: BingoFull(); break;
         }
     }
