@@ -2,7 +2,7 @@ namespace bingo;
 
 public class Bingo
 {
-    public void WriteBingo()
+    public static void WriteBingo()
     {
         string[] bingoAscii =
         {
@@ -19,7 +19,7 @@ public class Bingo
         }
     }
 
-    public void ChooseMode()
+    public static void ChooseMode()
     {
         Console.WriteLine();
         Console.WriteLine("Vyberte rezim hry:");
@@ -53,12 +53,12 @@ public class Bingo
             case 2: BingoRow(); break;
             case 3: BingoCol(); break;
             case 4: BingoDiagonal(); break;
-            case 5: Loteria(); break;
+            //case 5: Loteria(); break;
             default: BingoFull(); break;
         }
     }
 
-    static void ChooseFill(int[,] card)
+    public static void ChooseFill(int[,] card)
     {
         Console.Write("Vyplnit karticku automaticky? (y/n) ");
         char ansFill = '.';
@@ -86,7 +86,7 @@ public class Bingo
         }
     }
 
-    static int[,] Create()
+    public static int[,] Create()
     {
         int cardHeight = 0;
         int cardWidth = 0;
@@ -569,10 +569,11 @@ public class Bingo
             Console.WriteLine("Vyhral si!");
         }
     }
-    
-    static void Loteria()
-    {
-        
-    }
 
+    public static void BingoGame()
+    {
+        WriteBingo();
+        Thread.Sleep(1000);
+        ChooseMode();
+    }
 }
