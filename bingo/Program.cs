@@ -1,5 +1,6 @@
 ﻿using static bingo.Bingo;
 using static bingo.Loteria;
+using static bingo.Piskvorky;
 using Console = System.Console;
 
 namespace bingo;
@@ -36,7 +37,7 @@ class Program
         Console.WriteLine("Vyberte rezim hry:");
         Console.WriteLine("1 - Bingo");
         Console.WriteLine("2 - Loteria");
-        // Console.WriteLine("3 - Piskvorky");
+        Console.WriteLine("3 - Piskvorky");
         // Console.WriteLine("4 - Sudoku");
         // Console.WriteLine("5 - Loteria");
         Console.WriteLine();
@@ -62,7 +63,7 @@ class Program
         {
             case 1: Bingo.BingoGame(); break;
             case 2: Loteria.LoteriaGame(); break;
-            // case 3: BingoCol(); break;
+            case 3: Piskvorky.PiskvorkyGame(); break;
             // case 4: BingoDiagonal(); break;
             // case 5: Loteria(); break;
             // default: BingoFull(); break;
