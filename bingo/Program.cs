@@ -44,7 +44,7 @@ class Program
             {
                 if (choice < 1 || choice > 5)
                 {
-                    Console.WriteLine("Vyberte hry od 1 do 5:");
+                    Console.WriteLine("Vyberte rezim hry od 1 do 5:");
                 }
                 choice = Convert.ToInt32(Console.ReadLine());
             }
@@ -388,7 +388,6 @@ class Program
         
         for (int i = 0; i < card.GetLength(0); i++)
         {
-            int numsInd = 0;
             for (int j = 0; j < numbers.Length; j++)
             {
                 if (numbers[j] == -1)
@@ -398,7 +397,7 @@ class Program
                 
                 if (card[i, i] == numbers[j])
                 {
-                    numsWon[numsInd] = true;
+                    numsWon[i] = true;
                     break;
                 }
             }
@@ -418,7 +417,6 @@ class Program
         
         for (int i = (card.GetLength(0) - 1); i >= 0; i--)
         {
-            int numsInd = 0;
             for (int j = 0; j < numbers.Length; j++)
             {
                 if (numbers[j] == -1)
@@ -426,9 +424,9 @@ class Program
                     break;
                 }
                 
-                if (card[i, i] == numbers[j])
+                if (card[i, (card.GetLength(0) - 1) - i] == numbers[j])
                 {
-                    numsWon[numsInd] = true;
+                    numsWon[i] = true;
                     break;
                 }
             }
@@ -564,6 +562,7 @@ class Program
         {
             Thread.Sleep(1000);
             counter = Step(numbers, counter);
+            Print(card, numbers);
             win = ChcekWinDiagonalRight(card, numbers);
             if (win)
             {
