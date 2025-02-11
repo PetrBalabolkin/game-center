@@ -94,7 +94,7 @@ public class Loteria
         }
     }
 
-    private static int[] ChooseNumbers(int[,] card)
+    private static int[] ChooseNumbers(int[,] card, int[] numbersAuto)
     {
         int[] numbers = new int[8];
 
@@ -121,6 +121,7 @@ public class Loteria
                 count++;
             } while (!Bingo.Contains(card, tempNum));
             numbers[i] = tempNum;
+            Print(card, numbersAuto, numbers);
         }
         return numbers;
     }
@@ -202,10 +203,10 @@ public class Loteria
         return counter;
     }
 
-    private static double ChooseJackpot()
+    private static int ChooseJackpot()
     {
         Random random = new Random();
-        double jackpot = random.Next(1000, 10000);
+        int jackpot = random.Next(1000, 10000);
 
         return jackpot;
     }
@@ -218,10 +219,8 @@ public class Loteria
         return budget;
     }
     
-    private static double Economy(int counter, bool win, double jackpot, double budget)
+    private static int Economy(int winMoney, int counter, bool win, int jackpot, int budget)
     {
-        double winMoney = 0;
-        
         if (counter == 8 && win)
         {
             winMoney = jackpot;
@@ -264,43 +263,88 @@ public class Loteria
         return false;
     }
 
+    private static bool ChooseContinue()
+    {
+        char contChar = '.';
+        
+        Console.WriteLine("Chcete pokracovat? (y/n)");
+        while (contChar != 'y' || contChar == 'n')
+        {
+            string input = Console.ReadLine();
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            {
+                contChar = input[0];
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
+            }
+        }
+
+        if (contChar == 'y')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private static void LoteriaMechanichs()
     {
-        int[] numbers = new int[100];
-        for (int i = 0; i < numbers.Length; i++)
-        {
-            numbers[i] = -1;
-        }
-        int counter = 0;
-        double money = 50;
-        double winMoney = 0;
-        bool win = false;
+        bool cont = false;
         
-        double jackpot = ChooseJackpot();
-        double budget = 900;
-        
-        int[,] card = Create();
-        FillAuto(card);
-        int[] chosenNumbers = new int[8];
-        Print(card, numbers, chosenNumbers);
-        
-        chosenNumbers = ChooseNumbers(card);
-        Print(card, numbers, chosenNumbers);
         do
         {
-            Thread.Sleep(1000);
-            counter = Step(numbers, counter);
-            Print(card, numbers, chosenNumbers);
-            win = CheckWin(card, numbers, chosenNumbers);
-            winMoney = Economy(counter, win, jackpot, budget);
-        } while (!win);
-
-        if (win)
-        {
-            Console.WriteLine("Vyhral si a konkretne " + winMoney + " eur");
-        }
+            int counter = 0;
+            int money = 50;
+            int winMoney = 0;
+            bool win = false;
         
-        money += winMoney;
+            int jackpot = ChooseJackpot();
+            int budget = 750;
+            
+            int[] numbers = new int[100];
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = -1;
+            }
+            
+            int[,] card = Create();
+            FillAuto(card);
+            int[] chosenNumbers = new int[8];
+            Print(card, numbers, chosenNumbers);
+        
+            chosenNumbers = ChooseNumbers(card, numbers);
+            Print(card, numbers, chosenNumbers);
+            
+            if (money <= 0)
+            {
+                cont = false;
+            }
+
+            money -= 10;
+            
+            do
+            {
+                Thread.Sleep(1000);
+                counter = Step(numbers, counter);
+                Print(card, numbers, chosenNumbers);
+                win = CheckWin(card, numbers, chosenNumbers);
+                winMoney = Economy(winMoney, counter, win, jackpot, budget);
+            } while (!win);
+
+            if (win)
+            {
+                Console.WriteLine("Vyhral si a konkretne " + winMoney + " eur");
+            }
+            money += winMoney;
+
+            cont = ChooseContinue();
+
+        } while (cont);
     }
 
     public static void LoteriaGame()
