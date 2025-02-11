@@ -49,7 +49,7 @@ public class Loteria
 
     private static void WriteRules()
     {
-        Console.WriteLine("1. V hre Loteria dostavate karticku (4 x 9), na ktorej musite vyznacit 8 cisel.");
+        Console.WriteLine("1. V hre Loteria dostavate karticku (3 x 9), na ktorej musite vyznacit 8 cisel.");
         Console.WriteLine("2. Nasledne budu vypadat cisla. Absolutne nahodne a neovplyvnene organizatorom sutaze.");
         Console.WriteLine("3. Cim skor vypadnu vami vyznacene cisla, tym viac penazi ziskkate.");
         Console.WriteLine("4. Ked prve 8 cisel budu take iste ako vyznacene, vyhravate JackPot. \n   Suma bude stanovena kazdy raz ina");
@@ -60,7 +60,7 @@ public class Loteria
 
     private static int[,] Create()
     {
-        int[,] card = new int[4, 9];
+        int[,] card = new int[3, 9];
         return card;
     }
 
@@ -145,16 +145,17 @@ public class Loteria
                     continue;
                 }
                 Console.Write(" ");
-                if (numbers.Contains(card[i, j]))
+                
+                if (numbers.Contains(card[i, j]) && chosenNumbers.Contains(card[i, j]))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                } else if (numbers.Contains(card[i, j]))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
                 else if (chosenNumbers.Contains(card[i, j]))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                } else if (numbers.Contains(card[i, j]) && chosenNumbers.Contains(card[i, j]))
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
                 }
                 Console.Write(card[i, j]);
                 
@@ -176,6 +177,45 @@ public class Loteria
             Console.WriteLine();
         }
     }
+    
+    private static int Step(int[] numbers, int counter)
+    {
+        Random random = new Random();
+
+        int stepNum = 0;
+
+        do
+        {
+            stepNum = random.Next(0, 100);
+        } while (numbers.Contains(stepNum));
+        
+        Console.WriteLine("Vypadlo cislo: " + stepNum);
+
+        numbers[counter] = stepNum;
+        counter++;
+        
+        return counter;
+    }
+
+    private static bool CheckWin(int[,] card, int[] numbers, int[] chosenNumbers)
+    {
+        bool[] findenNumbers = new bool[chosenNumbers.Length];
+
+        for (int i = 0; i < chosenNumbers.Length; i++)
+        {
+            if (numbers.Contains(chosenNumbers[i]))
+            {
+                findenNumbers[i] = true;
+            }
+        }
+        
+        if (findenNumbers.All(n => n))
+        {
+            return true;
+        }
+        
+        return false;
+    }
 
     private static void LoteriaMechanichs()
     {
@@ -184,12 +224,23 @@ public class Loteria
         {
             numbers[i] = -1;
         }
+        int counter = 0;
+        bool win = false;
+        
         int[,] card = Create();
         FillAuto(card);
         int[] chosenNumbers = new int[8];
         Print(card, numbers, chosenNumbers);
+        
         chosenNumbers = ChooseNumbers(card);
         Print(card, numbers, chosenNumbers);
+        do
+        {
+            Thread.Sleep(1000);
+            counter = Step(numbers, counter);
+            Print(card, numbers, chosenNumbers);
+            win = CheckWin(card, numbers, chosenNumbers);
+        } while (!win);
     }
 
     public static void LoteriaGame()
@@ -199,6 +250,5 @@ public class Loteria
         WriteLoteria();
         ChooseWriteRules();
         LoteriaMechanichs();
-        
     }
 }
