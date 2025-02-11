@@ -98,11 +98,17 @@ public class Loteria
     {
         int[] numbers = new int[8];
 
+        Console.WriteLine("Zadajte 8 cisel:");
         for (int i = 0; i < numbers.Length; i++)
         {
+            int count = 0;
             int tempNum = 0;
             do
             {
+                if (count > 0)
+                {
+                    Console.WriteLine("Zadajte cislo, ktore je v listku");
+                }
                 Console.Write("Vyberte si cislo: ");
                 try
                 {
@@ -110,8 +116,9 @@ public class Loteria
                 }
                 catch
                 {
-                    Console.WriteLine("Zaqdali ste neplatnu hodnotu");
+                    Console.WriteLine("Zadali ste neplatnu hodnotu");
                 }
+                count++;
             } while (!Bingo.Contains(card, tempNum));
             numbers[i] = tempNum;
         }
@@ -195,22 +202,43 @@ public class Loteria
         return counter;
     }
 
-    // TODO... vypisovanie
-    private static double Economy(int counter, bool win)
+    private static double ChooseJackpot()
     {
         Random random = new Random();
-        double winMoney = 0;
         double jackpot = random.Next(1000, 10000);
+
+        return jackpot;
+    }
+    
+    private static double ChooseBudget()
+    {
+        Random random = new Random();
         double budget = random.Next(1000, 2000);
+        
+        return budget;
+    }
+    
+    private static double Economy(int counter, bool win, double jackpot, double budget)
+    {
+        double winMoney = 0;
         
         if (counter == 8 && win)
         {
             winMoney = jackpot;
+            Console.WriteLine("Vyhrali ste jackpot v rozmere " + jackpot + " eur");
         }
 
         if (win)
         {
-            winMoney = budget - (counter * 10);
+            if (winMoney > 0)
+            {
+                winMoney = budget - (counter * 10);
+            }
+        }
+
+        if (!win)
+        {
+            Console.WriteLine("Mohli ste vyhrat " + (budget - (counter * 10)) + " eur");
         }
         
         return winMoney;
@@ -248,6 +276,9 @@ public class Loteria
         double winMoney = 0;
         bool win = false;
         
+        double jackpot = ChooseJackpot();
+        double budget = 900;
+        
         int[,] card = Create();
         FillAuto(card);
         int[] chosenNumbers = new int[8];
@@ -261,13 +292,15 @@ public class Loteria
             counter = Step(numbers, counter);
             Print(card, numbers, chosenNumbers);
             win = CheckWin(card, numbers, chosenNumbers);
-            winMoney = Economy(counter, win);
+            winMoney = Economy(counter, win, jackpot, budget);
         } while (!win);
 
         if (win)
         {
             Console.WriteLine("Vyhral si a konkretne " + winMoney + " eur");
         }
+        
+        money += winMoney;
     }
 
     public static void LoteriaGame()
