@@ -1,7 +1,4 @@
-﻿using static bingo.Bingo;
-using static bingo.Loteria;
-using static bingo.Piskvorky;
-using Console = System.Console;
+﻿using Console = System.Console;
 
 namespace bingo;
 

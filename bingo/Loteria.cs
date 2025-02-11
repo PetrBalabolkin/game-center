@@ -1,5 +1,3 @@
-using static bingo.Bingo;
-
 namespace bingo;
 
 public class Loteria
@@ -186,7 +184,7 @@ public class Loteria
 
         do
         {
-            stepNum = random.Next(0, 100);
+            stepNum = random.Next(0, 91);
         } while (numbers.Contains(stepNum));
         
         Console.WriteLine("Vypadlo cislo: " + stepNum);
@@ -195,6 +193,27 @@ public class Loteria
         counter++;
         
         return counter;
+    }
+
+    // TODO... vypisovanie
+    private static double Economy(int counter, bool win)
+    {
+        Random random = new Random();
+        double winMoney = 0;
+        double jackpot = random.Next(1000, 10000);
+        double budget = random.Next(1000, 2000);
+        
+        if (counter == 8 && win)
+        {
+            winMoney = jackpot;
+        }
+
+        if (win)
+        {
+            winMoney = budget - (counter * 10);
+        }
+        
+        return winMoney;
     }
 
     private static bool CheckWin(int[,] card, int[] numbers, int[] chosenNumbers)
@@ -225,6 +244,8 @@ public class Loteria
             numbers[i] = -1;
         }
         int counter = 0;
+        double money = 50;
+        double winMoney = 0;
         bool win = false;
         
         int[,] card = Create();
@@ -240,7 +261,13 @@ public class Loteria
             counter = Step(numbers, counter);
             Print(card, numbers, chosenNumbers);
             win = CheckWin(card, numbers, chosenNumbers);
+            winMoney = Economy(counter, win);
         } while (!win);
+
+        if (win)
+        {
+            Console.WriteLine("Vyhral si a konkretne " + winMoney + " eur");
+        }
     }
 
     public static void LoteriaGame()
