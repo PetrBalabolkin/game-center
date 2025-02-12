@@ -36,8 +36,7 @@ class Program
         Console.WriteLine("1 - Bingo");
         Console.WriteLine("2 - Loteria");
         Console.WriteLine("3 - Piskvorky");
-        // Console.WriteLine("4 - Sudoku");
-        // Console.WriteLine("5 - Loteria");
+        Console.WriteLine("4 - Sudoku");
         Console.WriteLine();
 
         int choice = 0;
@@ -45,9 +44,9 @@ class Program
         {
             try
             {
-                if (choice < 1 || choice > 4)
+                if (choice < 1 || choice > 5)
                 {
-                    Console.WriteLine("Vyberte rezim hry od 1 do 5:");
+                    Console.WriteLine("Vyberte rezim hry od 1 do 4:");
                 }
                 choice = Convert.ToInt32(Console.ReadLine());
             }
@@ -62,8 +61,7 @@ class Program
             case 1: Bingo.BingoGame(); break;
             case 2: Loteria.LoteriaGame(); break;
             case 3: Piskvorky.PiskvorkyGame(); break;
-            // case 4: BingoDiagonal(); break;
-            // case 5: Loteria(); break;
+            case 4: Sudoku.SudokuGame(); break;
             default: Bingo.BingoGame(); break;
         }
     }
