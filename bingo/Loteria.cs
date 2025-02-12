@@ -109,10 +109,21 @@ public class Loteria
                 {
                     Console.WriteLine("Zadajte cislo, ktore je v listku");
                 }
+
+                int c = 0;
+                
                 Console.Write("Vyberte si cislo: ");
                 try
                 {
-                    tempNum = Convert.ToInt32(Console.ReadLine());
+                    do
+                    {
+                        if (c > 0)
+                        {
+                            Console.WriteLine("Zadane cislo uz bolo zadane");
+                        }
+                        tempNum = Convert.ToInt32(Console.ReadLine());
+                        c++;
+                    } while (numbers.Contains(tempNum));
                 }
                 catch
                 {
