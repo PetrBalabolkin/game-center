@@ -6,13 +6,13 @@ public class Loteria
     {
         Console.Clear();
         string[] loteriaAscii =
-        {
+        [
             "██       ██████  ████████ ███████ ██████  ██  █████ ",
             "██      ██    ██    ██    ██      ██   ██ ██ ██   ██",
             "██      ██    ██    ██    █████   ██████  ██ ███████",
             "██      ██    ██    ██    ██      ██   ██ ██ ██   ██",
-            "███████  ██████     ██    ███████ ██   ██ ██ ██   ██",
-        };
+            "███████  ██████     ██    ███████ ██   ██ ██ ██   ██"
+        ];
 
         foreach (string line in loteriaAscii)
         {
@@ -35,6 +35,7 @@ public class Loteria
             }
             else
             {
+                ansFill = '.';
                 Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
             }
         }
@@ -83,7 +84,7 @@ public class Loteria
                     continue;
                 }
                 
-                int fillNum = 0;
+                int fillNum;
                 do
                 {
                     fillNum = random.Next((i * 10), ((i + 1) * 10));
@@ -204,7 +205,7 @@ public class Loteria
     {
         Random random = new Random();
 
-        int stepNum = 0;
+        int stepNum;
 
         do
         {
@@ -227,13 +228,15 @@ public class Loteria
         return jackpot;
     }
     
+    // Keby sme chceli zvysit sancu vyhry
+    /*
     private static double ChooseBudget()
     {
         Random random = new Random();
         double budget = random.Next(1000, 2000);
         
         return budget;
-    }
+    } */
     
     private static int Economy(int winMoney, int counter, bool win, int jackpot, int budget)
     {
@@ -259,7 +262,7 @@ public class Loteria
         return winMoney;
     }
 
-    private static bool CheckWin(int[,] card, int[] numbers, int[] chosenNumbers)
+    private static bool CheckWin(int[] numbers, int[] chosenNumbers)
     {
         bool[] findenNumbers = new bool[chosenNumbers.Length];
 
@@ -294,6 +297,7 @@ public class Loteria
             }
             else
             {
+                contChar = '.';
                 Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
             }
         }
@@ -310,15 +314,14 @@ public class Loteria
 
     private static void LoteriaMechanichs()
     {
-        bool cont = false;
+        bool cont;
+        int money = 10;
         
         do
         {
             int counter = 0;
-            int money = 50;
             int winMoney = 0;
-            bool win = false;
-        
+            bool win;
             int jackpot = ChooseJackpot();
             int budget = 750;
             
@@ -335,11 +338,6 @@ public class Loteria
         
             chosenNumbers = ChooseNumbers(card, numbers);
             Print(card, numbers, chosenNumbers);
-            
-            if (money <= 0)
-            {
-                cont = false;
-            }
 
             money -= 10;
             
@@ -348,7 +346,7 @@ public class Loteria
                 Thread.Sleep(1000);
                 counter = Step(numbers, counter);
                 Print(card, numbers, chosenNumbers);
-                win = CheckWin(card, numbers, chosenNumbers);
+                win = CheckWin(numbers, chosenNumbers);
                 winMoney = Economy(winMoney, counter, win, jackpot, budget);
             } while (!win);
 
@@ -358,15 +356,22 @@ public class Loteria
             }
             money += winMoney;
 
-            cont = ChooseContinue();
-
+            if (money > 0)
+            {
+                Console.WriteLine("Vas kredit: " + money + " eur");
+                Console.WriteLine("Cena hry: 10 eur");
+                cont = ChooseContinue();
+            }
+            else
+            {
+                cont = false;
+            }
+            
         } while (cont);
     }
 
     public static void LoteriaGame()
     {
-        Bingo bingo = new Bingo();
-        
         WriteLoteria();
         ChooseWriteRules();
         LoteriaMechanichs();

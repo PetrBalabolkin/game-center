@@ -5,13 +5,13 @@ public class Bingo
     private static void WriteBingo()
     {
         string[] bingoAscii =
-        {
+        [
             "███████  ██ ███    ██  ██████   ██████ ",
             "██    ██ ██ ████   ██ ██       ██    ██",
             "███████  ██ ██ ██  ██ ██   ███ ██    ██",
             "██    ██ ██ ██  ██ ██ ██    ██ ██    ██",
             "███████  ██ ██   ████  ██████   ██████ "
-        };
+        ];
 
         foreach (string line in bingoAscii)
         {
@@ -54,7 +54,6 @@ public class Bingo
             case 3: BingoCol(); break;
             case 4: BingoDiagonal(); break;
             case 5: Loteria.LoteriaGame(); break;
-            default: BingoFull(); break;
         }
     }
 
@@ -72,6 +71,7 @@ public class Bingo
             }
             else
             {
+                ansFill = '.';
                 Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
             }
         }
@@ -141,13 +141,7 @@ public class Bingo
                 {
                     Console.Write(" ");
                 }
-
-                // neviem, ci by som toto mal nechat
-                /* if (card[i, j] == 0)
-                {
-                    Console.Write("   |");
-                    continue;
-                } */
+                
                 Console.Write(" ");
                 if (numbers.Contains(card[i, j]))
                 {
@@ -182,14 +176,7 @@ public class Bingo
         {
             for (int j = 0; j < card.GetLength(0); j++)
             {
-                /*
-                int rndNum = random.Next(0, 10);
-                if (rndNum == 1 || rndNum == 5)
-                {
-                    continue;
-                }
-                */
-                int rndNum = 0;
+                int rndNum;
                 do
                 {
                     rndNum = random.Next((i * 10), ((i + 1) * 10));
@@ -256,7 +243,7 @@ public class Bingo
     {
         Random random = new Random();
 
-        int stepNum = 0;
+        int stepNum;
 
         do
         {
@@ -450,7 +437,7 @@ public class Bingo
 
     private static void BingoFull()
     {
-        bool win = false;
+        bool win;
         
         int[] numbers = new int[100];
         for (int i = 0; i < numbers.Length; i++)
@@ -480,7 +467,7 @@ public class Bingo
 
     private static void BingoRow()
     {
-        bool win = false;
+        bool win;
         
         int[] numbers = new int[100];
         for (int i = 0; i < numbers.Length; i++)
@@ -509,7 +496,7 @@ public class Bingo
 
     private static void BingoCol()
     {
-        bool win = false;
+        bool win;
         
         int[] numbers = new int[100];
         for (int i = 0; i < numbers.Length; i++)
@@ -538,7 +525,7 @@ public class Bingo
 
     private static void BingoDiagonal()
     {
-        bool win = false;
+        bool win;
         
         int[] numbers = new int[100];
         for (int i = 0; i < numbers.Length; i++)
