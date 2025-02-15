@@ -4,7 +4,7 @@ namespace bingo;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         Console.WriteLine();
         WriteName();
@@ -14,14 +14,14 @@ class Program
 
     private static void WriteName()
     {
-        string[] asciiArt = new string[]
-        {
+        string[] asciiArt =
+        [
             " ██████   █████  ███    ███ ███████       ██████  ███████ ███    ██ ████████ ███████ ██████ ",
             "██       ██   ██ ████  ████ ██           ██    ██ ██      ████   ██    ██    ██      ██   ██",
             "██  ████ ███████ ██ ████ ██ █████        ██       █████   ██ ██  ██    ██    █████   ██████ ",
             "██    ██ ██   ██ ██  ██  ██ ██           ██    ██ ██      ██  ██ ██    ██    ██      ██   ██",
-            " ██████  ██   ██ ██      ██ ███████       ██████  ███████ ██   ████    ██    ███████ ██   ██",
-        };
+            " ██████  ██   ██ ██      ██ ███████       ██████  ███████ ██   ████    ██    ███████ ██   ██"
+        ];
 
         foreach (string line in asciiArt)
         {

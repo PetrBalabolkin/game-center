@@ -5,13 +5,13 @@ public class Sudoku
     private static void WriteSudoku()
     {
         string[] sudokuAscii =
-        {
+        [
             "███████ ██    ██ ███████   ██████  ██   ██ ██    ██ ",
             "██      ██    ██ ██    ██ ██    ██ ██  ██  ██    ██ ",
             "███████ ██    ██ ██    ██ ██    ██ █████   ██    ██ ",
             "     ██ ██    ██ ██    ██ ██    ██ ██ ██   ██    ██ ",
-            "███████  ██████  ███████   ██████  ██   ██  ██████  ",
-        };
+            "███████  ██████  ███████   ██████  ██   ██  ██████  "
+        ];
         
         foreach (string line in sudokuAscii)
         {
@@ -102,25 +102,65 @@ public class Sudoku
             Console.WriteLine();
         }
     }
-
-    // TODO... debug fillovania
-    private static void FillCard(int[,] card)
+    
+    private static bool IsValid(int[,] board, int row, int col, int num)
     {
-        Random random = new Random();
-
-        for (int i = 0; i < card.GetLength(0); i++)
+        for (int j = 0; j < board.GetLength(1); j++)
         {
-            for (int j = 0; j < card.GetLength(1); j++)
-            {
-                int fillNum = 0;
-                do
-                {
-                    fillNum = random.Next(1, 10);
-                } while (ContainsRow(card, i, fillNum) || ContainsCol(card, j, fillNum) || ContainsSquare(card, fillNum, i, j));
+            if (board[row, j] == num)
+                return false;
+        }
+        
+        for (int i = 0; i < board.GetLength(0); i++)
+        {
+            if (board[i, col] == num)
+                return false;
+        }
+        
+        int startRow = row - row % 3;
+        int startCol = col - col % 3;
 
-                card[i, j] = fillNum;
+        for (int i = startRow; i < startRow + 3; i++)
+        {
+            for (int j = startCol; j < startCol + 3; j++)
+            {
+                if (board[i, j] == num)
+                    return false;
             }
         }
+        return true;
+    }
+    
+    private static bool FillCard(int[,] card)
+    {
+        for (int row = 0; row < card.GetLength(0); row++)
+        {
+            for (int col = 0; col < card.GetLength(1); col++)
+            {
+                if (card[row, col] == 0)
+                {
+                    List<int> nums = Enumerable.Range(1, 9).ToList();
+                    nums = nums.OrderBy(_ => Guid.NewGuid()).ToList();
+
+                    foreach (int num in nums)
+                    {
+                        if (IsValid(card, row, col, num))
+                        {
+                            card[row, col] = num;
+                            
+                            if (FillCard(card))
+                            {
+                                return true;
+                            }
+                        
+                            card[row, col] = 0;
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     private static void FillUserCard(int[,] card, int[,] filledCard)
@@ -159,68 +199,13 @@ public class Sudoku
         }
     }
 
-    private static bool ContainsRow(int[,] card, int row, int num)
-    {
-        for (int i = 0; i < card.GetLength(1); i++)
-        {
-            if (card[row, i] == num)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    private static bool ContainsCol(int[,] card, int col, int num)
-    {
-        for (int i = 0; i < card.GetLength(0); i++)
-        {
-            if (card[i, col] == num)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static bool ContainsSquare(int[,] card, int num, int row, int col)
-    {
-        if (row == 1 || row == 4 || row == 7)
-        {
-            row -= 1;
-        } else if (row == 2 || row == 5 || row == 8)
-        {
-            row -= 2;
-        }
-        
-        if (col == 1 || col == 4 || col == 7)
-        {
-            col -= 1;
-        } else if (col == 2 || col == 5 || col == 8)
-        {
-            col -= 2;
-        }
-        
-        for (int i = row; i < (row + 3); i++)
-        {
-            for (int j = col; j < (col + 3); j++)
-            {
-                if (card[i, j] == num)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     private static void SudokuMechanics()
     {
         int[,] card = Create();
         int[,] filledCard = Create();
         Print(card);
-        //FillCard(filledCard);
-        SolveSudoku(filledCard);
+        FillCard(filledCard);
+        // SolveSudoku(filledCard);
         FillUserCard(card, filledCard);
         Print(card);
     }
@@ -229,72 +214,5 @@ public class Sudoku
     {
         WriteSudoku();
         SudokuMechanics();
-    }
-    
-    // ChatGPT code
-    private static bool SolveSudoku(int[,] board)
-    {
-        // Ищем первую пустую ячейку (обозначенную 0)
-        for (int row = 0; row < board.GetLength(0); row++)
-        {
-            for (int col = 0; col < board.GetLength(1); col++)
-            {
-                if (board[row, col] == 0)
-                {
-                    // Создаем список чисел от 1 до 9 и перемешиваем его для случайности
-                    List<int> numbers = Enumerable.Range(1, 9).ToList();
-                    numbers = numbers.OrderBy(x => Guid.NewGuid()).ToList();
-
-                    foreach (int num in numbers)
-                    {
-                        if (IsValid(board, row, col, num))
-                        {
-                            board[row, col] = num;
-
-                            if (SolveSudoku(board))
-                                return true;
-
-                            // Откат: сбрасываем значение ячейки, если дальнейшее заполнение не удалось
-                            board[row, col] = 0;
-                        }
-                    }
-                    // Если ни одно число не подошло, возвращаем false для отката
-                    return false;
-                }
-            }
-        }
-        // Если пустых ячеек нет, судоку заполнено корректно
-        return true;
-    }
-
-    private static bool IsValid(int[,] board, int row, int col, int num)
-    {
-        // Проверяем строку
-        for (int j = 0; j < board.GetLength(1); j++)
-        {
-            if (board[row, j] == num)
-                return false;
-        }
-
-        // Проверяем столбец
-        for (int i = 0; i < board.GetLength(0); i++)
-        {
-            if (board[i, col] == num)
-                return false;
-        }
-
-        // Определяем границы 3x3 квадрата
-        int startRow = row - row % 3;
-        int startCol = col - col % 3;
-
-        for (int i = startRow; i < startRow + 3; i++)
-        {
-            for (int j = startCol; j < startCol + 3; j++)
-            {
-                if (board[i, j] == num)
-                    return false;
-            }
-        }
-        return true;
     }
 }
