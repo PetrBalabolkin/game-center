@@ -5,13 +5,13 @@ public class Piskvorky
     private static void WritePiskvorky()
     {
         string[] loteriaAscii =
-        {
+        [
             "██████  ██ ███████ ██   ██ ██    ██  ██████  ██████  ██   ██ ██    ██ ",
             "██   ██ ██ ██      ██  ██  ██    ██ ██    ██ ██   ██ ██  ██   ██  ██  ",
             "██████  ██ ███████ █████   ██    ██ ██    ██ ██████  █████     ████   ",
             "██      ██      ██ ██ ██    ██  ██  ██    ██ ██   ██ ██ ██      ██    ",
-            "██      ██ ███████ ██   ██    ██     ██████  ██   ██ ██   ██    ██    ",
-        };
+            "██      ██ ███████ ██   ██    ██     ██████  ██   ██ ██   ██    ██    "
+        ];
 
         foreach (string line in loteriaAscii)
         {
@@ -34,6 +34,7 @@ public class Piskvorky
             }
             else
             {
+                ansFill = '.';
                 Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
             }
         }
@@ -89,7 +90,6 @@ public class Piskvorky
                         if (a < 0 || a >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (a < 0 || a >= 3);
                 }
@@ -108,7 +108,6 @@ public class Piskvorky
                         if (b < 0 || b >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (b < 0 || b >= 3);
                 }
@@ -309,7 +308,6 @@ public class Piskvorky
                         if (a < 0 || a >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (a < 0 || a >= 3);
                 }
@@ -328,7 +326,6 @@ public class Piskvorky
                         if (b < 0 || b >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (b < 0 || b >= 3);
                 }
@@ -365,7 +362,6 @@ public class Piskvorky
                         if (c < 0 || d >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (c < 0 || c >= 3);
                 }
@@ -384,7 +380,6 @@ public class Piskvorky
                         if (d < 0 || d >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (d < 0 || d >= 3);
                 }
@@ -422,7 +417,6 @@ public class Piskvorky
                         if (c < 0 || d >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (c < 0 || c >= 3);
                 }
@@ -441,7 +435,6 @@ public class Piskvorky
                         if (d < 0 || d >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (d < 0 || d >= 3);
                 }
@@ -476,7 +469,6 @@ public class Piskvorky
                         if (a < 0 || a >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (a < 0 || a >= 3);
                 }
@@ -495,7 +487,6 @@ public class Piskvorky
                         if (b < 0 || b >= 3)
                         {
                             Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                            continue;
                         }
                     } while (b < 0 || b >= 3);
                 }
@@ -518,7 +509,7 @@ public class Piskvorky
 
         private static bool CheckWin(char[,] arr, char znak, int[] winCor)
         {
-            bool win = false;
+            bool win;
             // horizontal
             if (arr[0, 0] == znak && arr[0, 1] == znak && arr[0, 2] == znak)
             {
@@ -632,17 +623,15 @@ public class Piskvorky
                 }
             }
             
-            bool win = false;
+            bool win;
             int[] winCorUser = new int[6];
             int[] winCorBot = new int[6];
-            
-            // Console.WriteLine("Piskvorky");
             
             WritePiskvorky();
             char isAuto = ChooseMode();
 
-            char user = '.';
-            char bot = '.';
+            char user;
+            char bot;
             
             do
             {
@@ -651,14 +640,7 @@ public class Piskvorky
                 Console.WriteLine();
             } while (user != 'o' && user != 'x');
             
-            if (user == 'x')
-            {
-                bot = 'o';
-            }
-            else
-            {
-                bot = 'x';
-            }
+            bot = user == 'x' ? 'o' : 'x';
 
             double time = 0;
             do
