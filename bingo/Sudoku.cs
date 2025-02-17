@@ -33,7 +33,38 @@ public class Sudoku
         return card;
     }
     
-    private static void Print(int[,] card)
+    public static bool ChooseHint()
+    {
+        char contChar = '.';
+        
+        Console.WriteLine();
+        Console.WriteLine("Potebujete rady? (y/n)");
+        while (contChar != 'y' || contChar == 'n')
+        {
+            string input = Console.ReadLine();
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            {
+                contChar = input[0];
+                break;
+            }
+            else
+            {
+                contChar = '.';
+                Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
+            }
+        }
+
+        if (contChar == 'y')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private static void Print(int[,] card, int[,] userNums, int[,] filledCard, bool hint)
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
         for (int i = 0; i < card.GetLength(1); i++)
@@ -68,10 +99,19 @@ public class Sudoku
                 }
                 
                 Console.Write(" ");
-                /* if (numbers.Contains(card[i, j]))
+                if (card[i, j] == userNums[i, j])
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                } */
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                }
+
+                if (hint)
+                {
+                    if (card[i, j] != filledCard[i, j])
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                }
+                
                 Console.Write(card[i, j]);
                 
                 Console.ResetColor();
@@ -199,15 +239,127 @@ public class Sudoku
         }
     }
 
+    private static void Step(int[,] card, int[,] numbers, ref int counter)
+    {
+        //TODO... eliminovat prazdny input
+        int userNum = 0;
+        int row = -1;
+        int col = -1;
+
+        try
+        {
+            int c = 0;
+            do
+            {
+                if (c > 0)
+                {
+                    Console.WriteLine("Zadali ste nespravne cislo");
+                }
+                Console.Write("Zadajte cislo od 1 do 9: ");
+                string inp = Console.ReadLine();
+
+                if (String.IsNullOrEmpty(inp))
+                {
+                    Console.WriteLine("Nezadali ste nic");
+                    continue;
+                }
+                c++;
+                userNum = Convert.ToInt32(inp);
+            } while (userNum < 0 || userNum > 9);
+        }
+        catch
+        {
+            Console.WriteLine("Zadali ste neplatne udaje: ");
+        }
+        
+        try
+        {
+            int c = 0;
+            do
+            {
+                if (c > 0)
+                {
+                    Console.WriteLine("Zadali ste nespravne udaje");
+                }
+                Console.Write("Zadajte cislo riadku (od 1 do 9): " +
+                              "\n(Cislovanie sa zacina na lavej strane) ");
+                row = Convert.ToInt32(Console.ReadLine());
+                c++;
+            } while (row < 0 || row > 9);
+        }
+        catch
+        {
+            Console.WriteLine("Zadali ste neplatne udaje: ");
+        }
+        
+        try
+        {
+            int c = 0;
+            do
+            {
+                if (c > 0)
+                {
+                    Console.WriteLine("Zadali ste nespravne cislo");
+                }
+
+                Console.Write("Zadajte cislo riadku (od 1 do 9): " +
+                              "\n(Cislovanie sa zacina hore) ");
+                col = Convert.ToInt32(Console.ReadLine());
+                c++;
+            } while (col < 0 || col > 9);
+        }
+        catch
+        {
+            Console.WriteLine("Zadali ste neplatne udaje: ");
+        }
+
+        row -= 1;
+        col -= 1;
+
+        card[row, col] = userNum;
+        numbers[row, col] = userNum;
+        counter++;
+    }
+
+    private static bool CheckWin(int[,] card, int[,] filledCard)
+    {
+        for (int i = 0; i < filledCard.GetLength(0); i++)
+        {
+            for (int j = 0; j < filledCard.GetLength(1); j++)
+            {
+                if (card[i, j] != filledCard[i, j])
+                {
+                    return false;
+                }
+            }
+        }
+        
+        return false;
+    }
+
     private static void SudokuMechanics()
     {
-        int[,] card = Create();
-        int[,] filledCard = Create();
-        Print(card);
-        FillCard(filledCard);
-        // SolveSudoku(filledCard);
-        FillUserCard(card, filledCard);
-        Print(card);
+        bool cont;
+        do
+        {
+            bool win;
+            int counter = 0;
+            bool hint = ChooseHint();
+            int[,] card = Create();
+            int[,] filledCard = Create();
+            int[,] userNums = Create();
+            FillCard(filledCard);
+            FillUserCard(card, filledCard);
+            do
+            {
+                Print(card, userNums, filledCard, hint);
+                Step(card, userNums, ref counter);
+                win = CheckWin(card, filledCard);
+            } while (!win);
+
+            cont = Loteria.ChooseContinue();
+
+        } while (cont);
     }
 
     public static void SudokuGame()

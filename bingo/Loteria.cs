@@ -282,7 +282,7 @@ public class Loteria
         return false;
     }
 
-    private static bool ChooseContinue()
+    public static bool ChooseContinue()
     {
         char contChar = '.';
         
