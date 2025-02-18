@@ -241,11 +241,10 @@ public class Sudoku
 
     private static void Step(int[,] card, int[,] numbers, ref int counter)
     {
-        //TODO... eliminovat prazdny input
-        int userNum = 0;
+        int userNum = -1;
         int row = -1;
         int col = -1;
-
+        
         try
         {
             int c = 0;
@@ -333,8 +332,7 @@ public class Sudoku
                 }
             }
         }
-        
-        return false;
+        return true;
     }
 
     private static void SudokuMechanics()
