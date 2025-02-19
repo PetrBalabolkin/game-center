@@ -257,7 +257,7 @@ public class Sudoku
                 Console.Write("Zadajte cislo od 1 do 9: ");
                 string inp = Console.ReadLine();
 
-                if (String.IsNullOrEmpty(inp))
+                if (inp.Length < 1)
                 {
                     Console.WriteLine("Nezadali ste nic");
                     continue;
@@ -278,12 +278,19 @@ public class Sudoku
             {
                 if (c > 0)
                 {
-                    Console.WriteLine("Zadali ste nespravne udaje");
+                    Console.WriteLine("Zadali ste nespravne cislo");
                 }
                 Console.Write("Zadajte cislo riadku (od 1 do 9): " +
                               "\n(Cislovanie sa zacina na lavej strane) ");
-                row = Convert.ToInt32(Console.ReadLine());
+                string inp = Console.ReadLine();
+
+                if (inp.Length < 1)
+                {
+                    Console.WriteLine("Nezadali ste nic");
+                    continue;
+                }
                 c++;
+                row = Convert.ToInt32(inp);
             } while (row < 0 || row > 9);
         }
         catch
@@ -300,18 +307,24 @@ public class Sudoku
                 {
                     Console.WriteLine("Zadali ste nespravne cislo");
                 }
-
                 Console.Write("Zadajte cislo riadku (od 1 do 9): " +
                               "\n(Cislovanie sa zacina hore) ");
-                col = Convert.ToInt32(Console.ReadLine());
+                string inp = Console.ReadLine();
+
+                if (inp.Length < 1)
+                {
+                    Console.WriteLine("Nezadali ste nic");
+                    continue;
+                }
                 c++;
+                col = Convert.ToInt32(inp);
             } while (col < 0 || col > 9);
         }
         catch
         {
             Console.WriteLine("Zadali ste neplatne udaje: ");
         }
-
+        
         row -= 1;
         col -= 1;
 
