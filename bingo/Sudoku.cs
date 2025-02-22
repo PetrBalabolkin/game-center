@@ -38,11 +38,11 @@ public class Sudoku
         char contChar = '.';
         
         Console.WriteLine();
-        Console.WriteLine("Potebujete rady? (y/n)");
-        while (contChar != 'y' || contChar == 'n')
+        Console.WriteLine("Potebujete rady? (Y/n)");
+        while (contChar != 'y' || contChar == 'n' || contChar != 'Y' || contChar == 'N')
         {
             string input = Console.ReadLine();
-            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n' || input[0] != 'Y' || input[0] == 'N'))
             {
                 contChar = input[0];
                 break;
@@ -50,11 +50,11 @@ public class Sudoku
             else
             {
                 contChar = '.';
-                Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
+                Console.WriteLine("Neplatne udaje, zadajte 'Y' alebo 'n'.");
             }
         }
 
-        if (contChar == 'y')
+        if (contChar == 'y' || contChar == 'Y')
         {
             return true;
         }
@@ -244,86 +244,67 @@ public class Sudoku
         int userNum = -1;
         int row = -1;
         int col = -1;
-        
-        try
-        {
-            int c = 0;
-            do
-            {
-                if (c > 0)
-                {
-                    Console.WriteLine("Zadali ste nespravne cislo");
-                }
-                Console.Write("Zadajte cislo od 1 do 9: ");
-                string inp = Console.ReadLine();
 
-                if (inp.Length < 1)
-                {
-                    Console.WriteLine("Nezadali ste nic");
-                    continue;
-                }
-                c++;
-                userNum = Convert.ToInt32(inp);
-            } while (userNum < 0 || userNum > 9);
-        }
-        catch
+        int count = 0;
+        do
         {
-            Console.WriteLine("Zadali ste neplatne udaje: ");
-        }
-        
-        try
-        {
-            int c = 0;
-            do
+            if (count > 0)
             {
-                if (c > 0)
-                {
-                    Console.WriteLine("Zadali ste nespravne cislo");
-                }
-                Console.Write("Zadajte cislo riadku (od 1 do 9): " +
-                              "\n(Cislovanie sa zacina na lavej strane) ");
-                string inp = Console.ReadLine();
-
-                if (inp.Length < 1)
-                {
-                    Console.WriteLine("Nezadali ste nic");
-                    continue;
-                }
-                c++;
-                row = Convert.ToInt32(inp);
-            } while (row < 0 || row > 9);
-        }
-        catch
-        {
-            Console.WriteLine("Zadali ste neplatne udaje: ");
-        }
-        
-        try
-        {
-            int c = 0;
-            do
+                Console.WriteLine("Zadali ste nespravne cislo");
+            }
+            Console.Write("Zadajte cislo od 1 do 9: ");
+            try
             {
-                if (c > 0)
-                {
-                    Console.WriteLine("Zadali ste nespravne cislo");
-                }
-                Console.Write("Zadajte cislo riadku (od 1 do 9): " +
-                              "\n(Cislovanie sa zacina hore) ");
-                string inp = Console.ReadLine();
-
-                if (inp.Length < 1)
-                {
-                    Console.WriteLine("Nezadali ste nic");
-                    continue;
-                }
-                c++;
-                col = Convert.ToInt32(inp);
-            } while (col < 0 || col > 9);
-        }
-        catch
+                userNum = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Zadali ste nespravnu hodnotu");
+                count++;
+            }
+        } while (userNum < 0 || userNum > 9);
+        
+        count = 0;
+        
+        do
         {
-            Console.WriteLine("Zadali ste neplatne udaje: ");
-        }
+            if (count > 0)
+            {
+                Console.WriteLine("Zadali ste nespravne cislo");
+            }
+            Console.Write("Zadajte cislo riadku (od 1 do 9): " +
+                          "\n(Cislovanie sa zacina na lavej strane) ");
+            try
+            {
+                row = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Zadali ste nespravnu hodnotu");
+                count++;
+            }
+        } while (row < 0 || row > 9);
+        
+        count = 0;
+        
+        do
+        {
+            if (count > 0)
+            {
+                Console.WriteLine("Zadali ste nespravne cislo");
+            }
+            Console.Write("Zadajte cislo riadku (od 1 do 9): " +
+                          "\n(Cislovanie sa zacina hore) ");
+            try
+            {
+                col = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Zadali ste nespravnu hodnotu");
+                count++;
+            }
+        } while (col < 0 || col > 9);
         
         row -= 1;
         col -= 1;

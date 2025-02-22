@@ -59,12 +59,12 @@ public class Bingo
 
     private static void ChooseFill(int[,] card)
     {
-        Console.Write("Vyplnit karticku automaticky? (y/n) ");
+        Console.Write("Vyplnit karticku automaticky? (Y/n) ");
         char ansFill = '.';
-        while (ansFill != 'y' || ansFill == 'n')
+        while (ansFill != 'y' || ansFill == 'n' || ansFill != 'Y' || ansFill == 'N')
         {
             string input = Console.ReadLine(); 
-            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n' || input[0] == 'Y' || input[0] == 'N'))
             {
                 ansFill = input[0];
                 break;
@@ -72,11 +72,11 @@ public class Bingo
             else
             {
                 ansFill = '.';
-                Console.WriteLine("Neplatne udaje, zadajte 'y' alebo 'n'.");
+                Console.WriteLine("Neplatne udaje, zadajte 'Y' alebo 'n'.");
             }
         }
         
-        if (ansFill == 'y')
+        if (ansFill == 'y' || ansFill == 'Y')
         {
             FillAuto(card);
         }

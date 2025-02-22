@@ -24,10 +24,10 @@ public class Piskvorky
     {
         Console.Write("Hrat proti pocitacu? (y/n) ");
         char ansFill = '.';
-        while (ansFill != 'y' || ansFill == 'n')
+        while (ansFill != 'y' || ansFill == 'n' || ansFill != 'Y' || ansFill == 'N')
         {
             string input = Console.ReadLine(); 
-            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n' || input[0] == 'Y' || input[0] == 'N'))
             {
                 ansFill = input[0];
                 break;
@@ -649,7 +649,7 @@ public class Piskvorky
                 ShowTable(arr, user, bot);
                 if (user == 'x')
                 {
-                    if (isAuto == 'y')
+                    if (isAuto == 'y' || isAuto == 'Y')
                     {
                         TakeStepXAuto(arr, user, bot, winCorUser);
                     }
@@ -660,7 +660,7 @@ public class Piskvorky
                 }
                 else
                 {
-                    if (isAuto == 'y')
+                    if (isAuto == 'y' || isAuto == 'Y')
                     {
                         TakeStepOAuto(arr, user, bot, winCorUser);
                     }

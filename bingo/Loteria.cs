@@ -25,10 +25,10 @@ public class Loteria
         Console.WriteLine();
         Console.Write("Vypisat pravidla? (y/n) ");
         char ansFill = '.';
-        while (ansFill != 'y' || ansFill == 'n')
+        while (ansFill != 'y' || ansFill == 'n' || ansFill != 'Y' || ansFill == 'N')
         {
             string input = Console.ReadLine(); 
-            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n' || input[0] == 'Y' || input[0] == 'N'))
             {
                 ansFill = input[0];
                 break;
@@ -40,7 +40,7 @@ public class Loteria
             }
         }
         
-        if (ansFill == 'y')
+        if (ansFill == 'y' || ansFill == 'Y')
         {
             WriteRules();
         }
@@ -286,11 +286,11 @@ public class Loteria
     {
         char contChar = '.';
         
-        Console.WriteLine("Chcete pokracovat? (y/n)");
-        while (contChar != 'y' || contChar == 'n')
+        Console.WriteLine("Chcete pokracovat? (Y/n)");
+        while (contChar != 'y' || contChar == 'n' || contChar != 'Y' || contChar == 'N')
         {
             string input = Console.ReadLine();
-            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n'))
+            if (input.Length == 1 && (input[0] == 'y' || input[0] == 'n' || input[0] == 'Y' || input[0] == 'N'))
             {
                 contChar = input[0];
                 break;
@@ -302,7 +302,7 @@ public class Loteria
             }
         }
 
-        if (contChar == 'y')
+        if (contChar == 'y' || contChar == 'Y')
         {
             return true;
         }
