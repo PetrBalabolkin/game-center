@@ -245,6 +245,7 @@ public class Sudoku
         int row = -1;
         int col = -1;
 
+        breakpoint:
         int count = 0;
         do
         {
@@ -273,7 +274,7 @@ public class Sudoku
                 Console.WriteLine("Zadali ste nespravne cislo");
             }
             Console.Write("Zadajte cislo riadku (od 1 do 9): " +
-                          "\n(Cislovanie sa zacina na lavej strane) ");
+                          "\n(Cislovanie sa zacina hore) ");
             try
             {
                 row = Convert.ToInt32(Console.ReadLine());
@@ -293,8 +294,8 @@ public class Sudoku
             {
                 Console.WriteLine("Zadali ste nespravne cislo");
             }
-            Console.Write("Zadajte cislo riadku (od 1 do 9): " +
-                          "\n(Cislovanie sa zacina hore) ");
+            Console.Write("Zadajte cislo stlpca (od 1 do 9): " +
+                          "\n(Cislovanie sa zacina na lavej strane) ");
             try
             {
                 col = Convert.ToInt32(Console.ReadLine());
@@ -308,6 +309,14 @@ public class Sudoku
         
         row -= 1;
         col -= 1;
+
+        if (card[row, col] != 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Zadane cislo uz bolo v karticke");
+            Console.WriteLine();
+            goto breakpoint;
+        }
 
         card[row, col] = userNum;
         numbers[row, col] = userNum;
