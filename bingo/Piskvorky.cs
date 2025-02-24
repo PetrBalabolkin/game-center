@@ -42,7 +42,7 @@ public class Piskvorky
     }
     private static void ShowTable(char[,] arr, char user, char bot)
         {
-            Console.WriteLine("Pouzivatel: " + user +"\nPocitac: " + bot);
+            Console.WriteLine("\nPouzivatel: " + user +"\nPocitac: " + bot);
 
             for (int i = 0; i < arr.GetLength(0); i++)
             {
@@ -590,7 +590,7 @@ public class Piskvorky
                         Console.Write(" ");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write(arr[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                         Console.Write(" |");
                     } else
                     {
