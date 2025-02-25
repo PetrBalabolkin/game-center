@@ -40,9 +40,17 @@ public class Piskvorky
         }
         return ansFill;
     }
-    private static void ShowTable(char[,] arr, char user, char bot)
+    private static void ShowTable(char[,] arr, char user, char bot, bool isAuto)
         {
-            Console.WriteLine("\nPouzivatel: " + user +"\nPocitac: " + bot);
+            if (isAuto)
+            {
+                Console.WriteLine("\nPouzivatel: " + user +"\nPocitac: " + bot);
+            }
+            else
+            {
+                Console.WriteLine("\nPouzivatel 1: " + user +"\nPouzivatel 2: " + bot);
+            }
+            
 
             for (int i = 0; i < arr.GetLength(0); i++)
             {
@@ -71,19 +79,21 @@ public class Piskvorky
             }
         }
 
-        private static void TakeStepXAuto(char[,] arr, char user, char bot, int[] winCor)
+        private static void TakeStepXAuto(char[,] arr, char user, char bot, int[] winCor, bool isAuto)
         {
             Random random = new Random();
-            int a = 0;
-            int b = 0;
-            int c = 0;
-            int d = 0;
+            int a = -1;
+            int b = -1;
+            int c = -1;
+            int d = -1;
             do
             {
                 Console.Write("Zadajte koordinaty (od 1 do 3): ");
 
                 try
                 {
+                    Console.Write("Zadajte cislo riadku (od 1 do 3): " +
+                                  "\n(Cislovanie sa zacina hore) ");
                     do
                     {
                         a = int.Parse(Console.ReadLine()) - 1;
@@ -102,6 +112,8 @@ public class Piskvorky
 
                 try
                 {
+                    Console.Write("Zadajte cislo stlpca (od 1 do 3): " +
+                                  "\n(Cislovanie sa zacina na lavej strane) ");
                     do
                     {
                         b = int.Parse(Console.ReadLine()) - 1;
@@ -127,7 +139,7 @@ public class Piskvorky
 
             arr[a, b] = user;
             
-            ShowTable(arr, user, bot);
+            ShowTable(arr, user, bot, isAuto);
             if (CheckWin(arr, user, winCor))
             {
                 return;
@@ -135,22 +147,15 @@ public class Piskvorky
             
             do
             {
-                Console.Write("Zadajte koordinaty (od 1 do 3): ");
                 try
                 {
                     do
                     {
                         c = random.Next(0, arr.GetLength(0) - 1);
-                        if (c < 0 || d >= 3)
-                        {
-                            Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                        }
                     } while (c < 0 || c >= 3);
                 }
                 catch
                 {
-                    Console.WriteLine("Nezadali ste cislo");
-                    Console.Write("Zadajte koordinaty (od 1 do 3): ");
                     continue;
                 }
                 
@@ -159,29 +164,24 @@ public class Piskvorky
                     do
                     {
                         d = random.Next(0, arr.GetLength(1) - 1);
-                        if (d < 0 || d >= 3)
-                        {
-                            Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                        }
                     } while (d < 0 || d >= 3);
                 }
                 catch
                 {
-                    Console.WriteLine("Nezadali ste cislo");
-                    Console.Write("Zadajte koordinaty (od 1 do 3): ");
                     continue;
                 }
 
+                /* 
                 if (arr[c, d] != '.')
                 {
                     Console.WriteLine("V zadanych koordinatoch uz je oznacene");
-                }
+                } */
             } while (arr[c, d] != '.');
             
             arr[c, d] = bot;
         }
         
-        private static void TakeStepOAuto(char[,] arr, char user, char bot, int[] winCor)
+        private static void TakeStepOAuto(char[,] arr, char user, char bot, int[] winCor, bool isAuto)
         {
             Random random = new Random();
             int a = 0;
@@ -191,22 +191,15 @@ public class Piskvorky
             
             do
             {
-                Console.Write("Zadajte koordinaty (od 1 do 3): ");
                 try
                 {
                     do
                     {
                         c = random.Next(0, arr.GetLength(0) - 1);
-                        if (c < 0 || d >= 3)
-                        {
-                            Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                        }
                     } while (c < 0 || c >= 3);
                 }
                 catch
                 {
-                    Console.WriteLine("Nezadali ste cislo");
-                    Console.Write("Zadajte koordinaty (od 1 do 3): ");
                     continue;
                 }
 
@@ -215,23 +208,14 @@ public class Piskvorky
                     do
                     {
                         d = random.Next(0, arr.GetLength(1) - 1);
-                        if (d < 0 || d >= 3)
-                        {
-                            Console.WriteLine("Koordinaty musia byt v rozmedzi od 1 do 3.");
-                        }
                     } while (d < 0 || d >= 3);
                 }
                 catch
                 {
-                    Console.WriteLine("Nezadali ste cislo");
-                    Console.Write("Zadajte koordinaty (od 1 do 3): ");
+                    
                     continue;
                 }
-
-                if (arr[c, d] != '.')
-                {
-                    Console.WriteLine("V zadanych koordinatoch uz je oznacene");
-                }
+                
             } while (arr[c, d] != '.');
             
             arr[c, d] = bot;
@@ -239,7 +223,7 @@ public class Piskvorky
             {
                 return;
             }
-            ShowTable(arr, user, bot);
+            ShowTable(arr, user, bot, isAuto);
             
             do
             {
@@ -290,7 +274,7 @@ public class Piskvorky
             arr[a, b] = user;
         }
         
-        private static void TakeStepXManual(char[,] arr, char oneUser, char twoUser, int[] winCor)
+        private static void TakeStepXManual(char[,] arr, char oneUser, char twoUser, int[] winCor, bool isAuto)
         {
             int a = 0;
             int b = 0;
@@ -345,7 +329,7 @@ public class Piskvorky
 
             arr[a, b] = oneUser;
             
-            ShowTable(arr, oneUser, twoUser);
+            ShowTable(arr, oneUser, twoUser, isAuto);
             if (CheckWin(arr, oneUser, winCor))
             {
                 return;
@@ -399,7 +383,7 @@ public class Piskvorky
             arr[c, d] = twoUser;
         }
         
-        private static void TakeStepOManual(char[,] arr, char oneUser, char twoUser, int[] winCor)
+        private static void TakeStepOManual(char[,] arr, char oneUser, char twoUser, int[] winCor, bool isAuto)
         {
             int a = 0;
             int b = 0;
@@ -456,7 +440,7 @@ public class Piskvorky
             {
                 return;
             }
-            ShowTable(arr, oneUser, twoUser);
+            ShowTable(arr, oneUser, twoUser, isAuto);
             
             do
             {
@@ -626,9 +610,13 @@ public class Piskvorky
             bool win;
             int[] winCorUser = new int[6];
             int[] winCorBot = new int[6];
+            bool isAuto = false;
             
             WritePiskvorky();
-            char isAuto = ChooseMode();
+            if (ChooseMode() == 'y' || ChooseMode() == 'Y')
+            {
+                isAuto = true;
+            }
 
             char user;
             char bot;
@@ -639,6 +627,8 @@ public class Piskvorky
                 user = Console.ReadKey().KeyChar;
                 Console.WriteLine();
             } while (user != 'o' && user != 'x');
+
+            Console.ReadKey();
             
             bot = user == 'x' ? 'o' : 'x';
 
@@ -646,27 +636,27 @@ public class Piskvorky
             do
             {
                 time++;
-                ShowTable(arr, user, bot);
+                ShowTable(arr, user, bot, isAuto);
                 if (user == 'x')
                 {
-                    if (isAuto == 'y' || isAuto == 'Y')
+                    if (isAuto)
                     {
-                        TakeStepXAuto(arr, user, bot, winCorUser);
+                        TakeStepXAuto(arr, user, bot, winCorUser, isAuto);
                     }
                     else
                     {
-                        TakeStepXManual(arr, user, bot, winCorUser);
+                        TakeStepXManual(arr, user, bot, winCorUser, isAuto);
                     }
                 }
                 else
                 {
-                    if (isAuto == 'y' || isAuto == 'Y')
+                    if (isAuto)
                     {
-                        TakeStepOAuto(arr, user, bot, winCorUser);
+                        TakeStepOAuto(arr, user, bot, winCorUser, isAuto);
                     }
                     else
                     {
-                        TakeStepOManual(arr, user, bot, winCorUser);
+                        TakeStepOManual(arr, user, bot, winCorUser, isAuto);
                     }
                 }
 
